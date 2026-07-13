@@ -4,6 +4,8 @@ import path from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Publicado como GitHub Pages de projeto: https://r0ssik.github.io/love/
+  base: "/love/",
   plugins: [react()],
   resolve: {
     alias: {
