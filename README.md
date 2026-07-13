@@ -48,10 +48,15 @@ Lá você troca, sem mexer em nenhum componente:
 ### Fotos, vídeos e músicas
 
 Todos os arquivos de mídia ficam em `public/fotos/` e são referenciados no `site.ts` pelo caminho
-`/fotos/nome-do-arquivo.ext`. Para adicionar ou trocar um item:
+`fotos/nome-do-arquivo.ext`. Para adicionar ou trocar um item:
 
 1. Coloque o arquivo em `public/fotos/` (aceita `.jpg`/`.jpeg`, `.mp4`, `.mp3`)
-2. No `site.ts`, aponte o campo correspondente para `/fotos/nome-do-arquivo.ext`
+2. No `site.ts`, aponte o campo correspondente para `fotos/nome-do-arquivo.ext`
+
+> **Importante:** o caminho NÃO deve começar com `/`. Como o site é publicado numa subpasta
+> (`/love/`) no GitHub Pages, um caminho começando com `/` aponta para a raiz do domínio e a
+> imagem quebra em produção (mesmo funcionando local). Sempre use caminhos relativos, sem a
+> barra inicial.
 
 ### Galeria com abas
 
@@ -86,7 +91,7 @@ escrita, o texto "Ainda será escrito." aparece no lugar.
 ### Música ambiente da introdução (opcional)
 
 1. Coloque um `.mp3` em `public/fotos/`
-2. No `site.ts`, em `intro`, descomente e ajuste: `ambientMusic: "/fotos/nome-do-arquivo.mp3"`
+2. No `site.ts`, em `intro`, descomente e ajuste: `ambientMusic: "fotos/nome-do-arquivo.mp3"`
 
 Essa música só começa após o usuário interagir (clicar em "Começar nossa história" ou "pular
 introdução").
