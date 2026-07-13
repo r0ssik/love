@@ -28,16 +28,16 @@ const START_GIRL = 68;
 
 const script: Step[] = [
   { ms: 1600, boy: START_BOY, girl: START_GIRL, caption: "Eles se olham..." },
-  { ms: 1400, boy: START_BOY, girl: START_GIRL, smile: true, caption: "E abrem um sorriso 😊" },
+  { ms: 1400, boy: START_BOY, girl: START_GIRL, smile: true, caption: "E abrem um sorriso" },
   { ms: 1400, boy: START_BOY, girl: START_GIRL, smile: true, blush: true, caption: "Ficam corados..." },
-  { ms: 1600, boy: START_BOY, girl: START_GIRL, smile: true, blush: true, hearts: true, caption: "Coraçõezinhos no ar 💕" },
+  { ms: 1600, boy: START_BOY, girl: START_GIRL, smile: true, blush: true, hearts: true, caption: "Coraçõezinhos no ar" },
   { ms: 2200, boy: 33, girl: 55, smile: true, blush: true, hearts: true, caption: "Caminham um em direção ao outro..." },
-  { ms: 1500, boy: 36, girl: 52, smile: true, blush: true, hearts: true, caption: "Param e se olham de novo 🥺" },
-  { ms: 1800, boy: 40, girl: 49, smile: true, blush: true, hearts: true, caption: "E dão as mãos 🤝" },
+  { ms: 1500, boy: 36, girl: 52, smile: true, blush: true, hearts: true, caption: "Param e se olham de novo" },
+  { ms: 1800, boy: 40, girl: 49, smile: true, blush: true, hearts: true, caption: "E dão as mãos" },
   { ms: 1800, boy: 40, girl: 49, smile: true, blush: true, hearts: true, caption: "Ficam ali, só admirando um ao outro..." },
-  { ms: 2000, boy: 43, girl: 46, smile: true, blush: true, hearts: true, hug: true, caption: "Um abraço bem fofinho 🤗" },
+  { ms: 2000, boy: 43, girl: 46, smile: true, blush: true, hearts: true, hug: true, caption: "Um abraço bem fofinho" },
   { ms: 1300, boy: 39, girl: 50, smile: true, blush: true, hearts: true, caption: "Se afastam um pouquinho..." },
-  { ms: 2000, boy: 43, girl: 47, smile: true, blush: true, hearts: true, kiss: true, caption: "E um beijinho delicado 😚" },
+  { ms: 2000, boy: 43, girl: 47, smile: true, blush: true, hearts: true, kiss: true, caption: "E um beijinho delicado" },
   { ms: 2200, boy: 42, girl: 48, smile: true, blush: true, hearts: true, bigHeart: true, fireworks: true, caption: "" },
   { ms: 100000, boy: 42, girl: 48, smile: true, blush: true, hearts: true, bigHeart: true, fireworks: true, caption: "" },
 ];
@@ -120,7 +120,7 @@ export function LoveGame() {
       id="jogo"
       eyebrow="Uma surpresa especial"
       title={<>Você me <span className="text-gradient">ama?</span></>}
-      subtitle="Fica até o final... tem uma perguntinha muito importante 👀"
+      subtitle="Fica até o final... tem uma perguntinha muito importante"
     >
       <GameStyles />
 
@@ -349,11 +349,15 @@ function GameStyles() {
     <style>{`
       .pixel-char { image-rendering: pixelated; }
       .pixel-flip { transform: scaleX(-1); }
-      .pc-breathe { animation: pc-breathe 3.2s ease-in-out infinite; transform-origin: 50% 100%; }
+      /* transform-box: fill-box faz o transform-origin usar o centro do
+         próprio elemento (olhos, cabelo, corpo), e não o canto do SVG
+         inteiro — sem isso, escalar/inclinar "puxa" o elemento para fora
+         do lugar. */
+      .pc-breathe { animation: pc-breathe 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 100%; }
       @keyframes pc-breathe { 0%,100%{ transform: scaleY(1);} 50%{ transform: scaleY(1.03);} }
-      .pc-hair { animation: pc-sway 4s ease-in-out infinite; transform-origin: 50% 0%; }
+      .pc-hair { animation: pc-sway 4s ease-in-out infinite; transform-box: fill-box; transform-origin: 50% 0%; }
       @keyframes pc-sway { 0%,100%{ transform: skewX(0deg) translateX(0);} 50%{ transform: skewX(-3deg) translateX(-0.4px);} }
-      .pc-eyes { animation: pc-blink 4.5s infinite; transform-origin: center; }
+      .pc-eyes { animation: pc-blink 4.5s infinite; transform-box: fill-box; transform-origin: center; }
       @keyframes pc-blink { 0%,92%,100%{ transform: scaleY(1);} 96%{ transform: scaleY(0.1);} }
 
       .gs-cloud { position:absolute; width:90px; height:26px; background:#fff; border-radius:999px;
