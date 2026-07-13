@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   TEMAS
+   Toda a identidade visual é dirigida por CSS variables. Trocar o atributo
+   data-theme no <html> troca o site inteiro, sem tocar em nenhum componente.
+   ========================================================================= */
+@layer base {
+  :root,
+  :root[data-theme="dark"] {
+    /* Tema principal: vermelho escuro / preto / branco */
+    --c-bg: 10 10 12;
+    --c-surface: 22 18 22;
+    --c-glass: 255 255 255; /* usado com baixa opacidade p/ glassmorphism */
+    --c-primary: 220 38 38; /* red-600 */
+    --c-primary-soft: 127 29 29; /* red-900 */
+    --c-accent: 244 114 182; /* pink-400 */
+    --c-ink: 245 240 242;
+    --c-muted: 168 162 166;
+    --c-line: 255 255 255;
+
+    --grad-hero: radial-gradient(
+        1200px 600px at 50% -10%,
+        rgb(127 29 29 / 0.55),
+        transparent 60%
+      ),
+      radial-gradient(800px 500px at 100% 20%, rgb(190 24 24 / 0.25), transparent 55%),
+      linear-gradient(180deg, rgb(10 10 12), rgb(10 10 12));
+  }
+
+  :root[data-theme="light"] {
+    /* Tema alternativo: branco / lilás / rosa claro */
+    --c-bg: 253 251 255;
+    --c-surface: 255 255 255;
+    --c-glass: 90 60 120;
+    --c-primary: 168 85 247; /* purple-500 (lilás) */
+    --c-primary-soft: 216 180 254; /* purple-300 */
+    --c-accent: 244 114 182; /* pink-400 */
+    --c-ink: 46 32 58;
+    --c-muted: 120 108 132;
+    --c-line: 40 20 60;
+
+    --grad-hero: radial-gradient(
+        1200px 600px at 50% -10%,
+        rgb(216 180 254 / 0.7),
+        transparent 60%
+      ),
+      radial-gradient(800px 500px at 100% 20%, rgb(251 207 232 / 0.7), transparent 55%),
+      linear-gradient(180deg, rgb(253 251 255), rgb(253 251 255));
+  }
+
+  * {
+    border-color: rgb(var(--c-line) / 0.08);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    transition: background-color 0.6s ease, color 0.6s ease;
+  }
+
+  /* Scrollbar romântica */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--c-bg));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(rgb(var(--c-primary)), rgb(var(--c-primary-soft)));
+    border-radius: 999px;
+    border: 2px solid rgb(var(--c-bg));
+  }
+
+  ::selection {
+    background: rgb(var(--c-primary) / 0.35);
+    color: rgb(var(--c-ink));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* =========================================================================
+   COMPONENTES UTILITÁRIOS REUTILIZÁVEIS
+   ========================================================================= */
+@layer components {
+  /* Cartão de vidro (glassmorphism) */
+  .glass {
+    background: rgb(var(--c-glass) / 0.06);
+    border: 1px solid rgb(var(--c-glass) / 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    @apply rounded-3xl shadow-soft;
+  }
+
+  .glass-strong {
+    background: rgb(var(--c-glass) / 0.1);
+    border: 1px solid rgb(var(--c-glass) / 0.18);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    @apply rounded-3xl shadow-soft;
+  }
+
+  /* Texto com gradiente */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      120deg,
+      rgb(var(--c-primary)),
+      rgb(var(--c-accent))
+    );
+  }
+
+  /* Botão primário */
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-7 py-3
+      font-medium text-white transition-all duration-300;
+    background: linear-gradient(120deg, rgb(var(--c-primary)), rgb(var(--c-primary-soft)));
+    box-shadow: 0 10px 30px -10px rgb(var(--c-primary) / 0.8);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px -12px rgb(var(--c-primary) / 0.9);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3
+      font-medium text-ink transition-all duration-300;
+    border-color: rgb(var(--c-line) / 0.18);
+  }
+  .btn-ghost:hover {
+    background: rgb(var(--c-glass) / 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* Título de seção */
+  .section-title {
+    @apply font-display text-3xl font-bold sm:text-4xl md:text-5xl;
+  }
+
+  .eyebrow {
+    @apply mb-3 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs
+      font-medium uppercase tracking-[0.2em] text-muted;
+    border-color: rgb(var(--c-line) / 0.14);
+    background: rgb(var(--c-glass) / 0.05);
+  }
+}
+
+@layer utilities {
+  .bg-hero-grad {
+    background-image: var(--grad-hero);
+  }
+
+  /* Efeito de brilho passando (shimmer) para skeletons e loading */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(var(--c-glass) / 0.12),
+      transparent
+    );
+    background-size: 200% 100%;
+    @apply animate-shimmer;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
