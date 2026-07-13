@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Site comemorativo de 1 ano de namoro — uma experiência interativa e cinematográfica.",
+  "description": "Site comemorativo de 1 ano de namoro, uma experiência interativa e cinematográfica.",
   "scripts": {
     "dev": "vite",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && vite build",
